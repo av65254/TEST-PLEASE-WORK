@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body{
+            text-align: center;
+            background-color: darkslategray;
+            color: white
+        }
+    </style>
+</head>
+<body>
+    <h1 id="quizQuestion"></h1> 
+    <div id="options" onclick="div()"></div> <br>
+    <h1 id="message"> </h1> <br><br>
+
+    <script>
+        //storing the variable in a element 
+        var quizQuestion = document.getElementById("quizQuestion"); 
+        var optionsDiv = document.getElementById("options");
+        var message = document.getElementById("message");
+        //setting the question state as the first  question so then it can loop through 
+        var questionState = 0;
+        //making the score 0 so as you get questions right the score goes up 
+        var score = 0;
+        //all the question, answers and options are stored here
+        var questionData = [
+            {
+                question: "Spot the Difference",
+                options: ["Q11.jpg", "Q11.jpg","Q12.jpg","Q11.jpg"],
+                answer: "Q12.jpg",
+            },
+            {
+                question: "Spot the difference",
+                options: ["Q21.jpeg", "Q22.jpeg", "Q21.jpeg", "Q21.jpeg"],
+                answer: "Q22.jpeg",
+            },
+            {
+                question: "Spot the Difference",
+                options: ["Q31.jpeg", "Q31.jpeg", "Q31.jpeg", "Q32.jpeg"],
+                answer: "Q32.jpeg",
+            },
+            {
+                question: "Spot the Difference",
+                options: ["miss.jpg", "allen.jpg", "allen.jpg", "allen.jpg"],
+                answer: "miss.jpg",
+            },
+            {
+                question: "Spot the Difference",
+                options: ["Q51.jpeg", "Q52.jpeg", "Q51.jpeg", "Q51.jpeg"],
+                answer: "Q52.jpeg",
+            },
+            {
+                question: "Spot the Difference",
+                options: ["Q61.jpeg", "Q61.jpeg", "Q61.jpeg", "Q62.jpeg"],
+                answer: "Q62.jpeg",
+            },
+            {
+                question: "Spot the Difference",
+                options: ["Q71.jpeg", "Q71.jpeg", "Q71.jpeg", "Q72.jpeg"],
+                answer: "Q72.jpeg",
+            }
+        ];
+        //this function makes the options show up as clickable images 
+       function showOptions() {
+            optionsDiv.innerHTML = "";
+            // Get the options for the current question
+            var options = questionData[questionState].options;
+            // Loop through each option to create clickable images
+            for (var i = 0; i < options.length; i++) {
+                var optionImage = document.createElement("img");
+                optionImage.src = options[i];
+                // Add click event to each image option
+                optionImage.addEventListener("click", function() {
+                    checkAnswer(this);
+                });
+                // Set image size
+                optionImage.style.width = "200px";
+                optionImage.style.height = "200px";
+                // Append the image option to the optionsDiv
+                optionsDiv.appendChild(optionImage);
+            }}
+        //all the end messages based on how many questions you got right 
+        function div() { 
+            if(questionState == 6) { 
+                if (score < 5) {
+                    message.innerHTML = "You got " + score + "/7 YOU GOT THE BRONZE MEDAL 🥉" 
+                }
+                else if (score ===5 ) {
+                    message.innerHTML = "You got " + score + "/7 YOU GOT THE SILVER MEDAL 🥈" 
+                }
+                else if (score > 5){ 
+                    message.innerHTML = "You got " + score + "/7 YOU GOT THE GOLD MEDAL 🥇" 
+                }
+            }
+             // changes the question once clicked on div 
+             questionState++;
+            // runs the function that shows all the options 
+            showOptions();
+            // gets rid off the message
+            message.innerHTML = "";
+        } 
+            //the message you recive once finished the quiz i want to kill myself 
+            function end(){
+                message.innerHTML = "Your final score is  " + score + "/7"
+            }
+
+        // check selected image agasint correct answer 
+        function checkAnswer(selectedImage) {
+            if (selectedImage.src.endsWith(questionData[questionState].answer)) {
+                // ups the score 
+                score++;
+            }
+        }
+        // shows the question 
+        quizQuestion.innerHTML = questionData[questionState].question;
+        // shows the option function 
+        showOptions();
+
+    </script>
+</body>
+</html>
+
+
+
+
+
